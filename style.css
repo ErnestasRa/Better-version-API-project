@@ -1,0 +1,69 @@
+h1 {
+    text-align: center;
+  }
+  body {
+    background: cornflowerblue;
+  }
+  .post-item {
+    width: 46%;
+    background: #f2f2f7;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 13px;
+    border-radius: 30px;
+  }
+  
+  header {
+    margin-left: 10px;
+    background: lightgray;
+    width: 95%;
+    height: 1.5rem;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  
+  .topnav a {
+    margin-left: 10px;
+  }
+
+#post-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+
+  .post-album-elements-title {
+    text-align: center;
+    font-size: 2.3rem;
+  } 
+
+
+  .album-item {
+    width: 46%;
+    background: #f2f2f7;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 13px;
+    border-radius: 30px;
+  }
+
+  .album-item img {
+    width: 50%;
+    align-items: center;
+    margin-left: 20%;
+  }
+
+  .album-item a {
+    text-align: center;
+  }
+
+
+  .albums-element {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }  
