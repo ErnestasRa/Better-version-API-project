@@ -22,7 +22,6 @@ let navigationItems =  [
 
 
 let pathName = document.location.pathname
-
 let header = document.createElement('header')
 let nav = document.createElement('nav')
 let searchForm = document.createElement('form')
@@ -48,7 +47,7 @@ searchInput.setAttribute('name','search-input')
 
 let searchSubmit = document.createElement('input')
 searchSubmit.setAttribute('type','submit')
-
+searchInput.innerHTML = 'Search'
 
 searchForm.append(searchInput,searchSubmit)
 
