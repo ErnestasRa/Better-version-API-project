@@ -43,14 +43,5 @@ fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
                 postCommentsEmail.textContent = comment.email
          
     postCommentsWrapper.append( postCommentsTitle,postCommentsBody,postCommentsEmail)
-        
-     
-
-
-
-
-
-
-
     postWrapper.append(postTitleElement,postBodyElement,postAuthorElement,commentsElement,postCommentsWrapper)
 })})     })

@@ -24,8 +24,7 @@ let navigationItems =  [
 let pathName = document.location.pathname
 let header = document.createElement('header')
 let nav = document.createElement('nav')
-let searchForm = document.createElement('form')
-searchForm.setAttribute('action','./search.html')
+
 
 navigationItems.map(navItem => {
     
@@ -41,15 +40,27 @@ navigationItems.map(navItem => {
     
 })
 
-let searchInput = document.createElement('input')
-searchInput.setAttribute('type', 'text')
-searchInput.setAttribute('name','search-input')
 
-let searchSubmit = document.createElement('input')
-searchSubmit.setAttribute('type','submit')
-searchInput.innerHTML = 'Search'
 
-searchForm.append(searchInput,searchSubmit)
 
-header.append(nav,searchForm)
-document.body.prepend(header)
+
+header.append(nav)
+if(!pathName.includes('search.html')) {
+
+    let searchForm = document.createElement('form')
+    searchForm.setAttribute('action','./search.html')
+
+    let searchInput = document.createElement('input')
+    searchInput.setAttribute('type', 'text')
+    searchInput.setAttribute('name','search-input')
+
+    let searchSubmit = document.createElement('input')
+    searchSubmit.setAttribute('type','submit')
+    searchInput.innerHTML = 'Search'
+
+    
+    searchForm.append(searchInput,searchSubmit)
+    header.append(searchForm)
+}
+
+document.body.prepend(header)   
