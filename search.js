@@ -1,9 +1,4 @@
-
-let queryParams = document.location.search;
-let urlParams = new URLSearchParams(queryParams);
-let searchPhrase = urlParams.get('search-input');
-
-let searchResults = document.getElementById('search-wrapper');
+let searchResults = document.querySelector('#search-wrapper');
 let usersList = document.createElement('ul');
 let usersListTitle = document.createElement('h3');
 
@@ -18,153 +13,61 @@ usersList.before(usersListTitle);
 postsList.before(postsListTitle);
 albumsList.before(albumsListTitle);
 
-fetch(`https://jsonplaceholder.typicode.com/users?username=${searchPhrase}`)
-  .then(res => res.json())
-  .then(users => {
-    if (users.length > 0) {
+function init() {
+  outerSearchForm();
+  innerSearchForm();
+}
 
+function outerSearchForm() {
+  let queryParams = document.location.search;
+  let urlParams = new URLSearchParams(queryParams);
+  let searchPhrase = urlParams.get('search-input');
 
-      usersListTitle.textContent = 'Users:'
-      users.map(user => {
-        let userItem = document.createElement('li');
-        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
-
-        usersList.append(userItem);
-      })
-
-
-    } else {
-      fetch(`https://jsonplaceholder.typicode.com/users?name=${searchPhrase}`)
-        .then(res => res.json())
-        .then(usersByName => {
-          if (usersByName.length > 0) {
-
-
-            usersListTitle.textContent = 'Users:'
-            usersByName.map(user => {
-              let userItem = document.createElement('li');
-              userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
-              usersList.append(userItem);
-            })
-
-
-          } else {
-            fetch(`https://jsonplaceholder.typicode.com/users?email=${searchPhrase}`)
-              .then(res => res.json())
-              .then(usersByEmail => {
-                if (usersByEmail.length > 0) {
-
-
-                  usersListTitle.textContent = 'Users:'
-                  usersByEmail.map(user => {
-                    let userItem = document.createElement('li');
-                    userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
-                    usersList.append(userItem);
-                  })
-
-
-                } else {
-                  usersListTitle.textContent = 'Users not found.'
-                }
-              })
-          } 
-        })
-    }
-  })
-
-fetch(`https://jsonplaceholder.typicode.com/posts?title=${searchPhrase}`)
-  .then(res => res.json())
-  .then(posts => {
-    if (posts.length > 0) {
-
-
-      postsListTitle.textContent = 'Posts:';
-      posts.map(post => {
-        let postItem = document.createElement('li');
-        postItem.innerHTML = `<a href="./post.html?post_id=${post.id}">${post.title}</a>`;
-        postsList.append(postItem);
-      })
-
-
-    } else {
-      postsListTitle.textContent = 'Posts not found.';
-    }
-  })
-
-fetch(`https://jsonplaceholder.typicode.com/albums?title=${searchPhrase}`)
-  .then(res => res.json())
-  .then(albums => {
-    if (albums.length > 0) {
-
-
-      albumsListTitle.textContent = 'Albums:';
-      albums.map(album => {
-        let albumItem = document.createElement('li');
-        albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}">${album.title}</a>`;
-        albumsList.append(albumItem);
-      })
-
-
-    } else {
-      albumsListTitle.textContent = 'Albums not found.';
-    }
-  })
-
-let searchPageForm = document.getElementById('first-form');
-
-searchPageForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  usersList.innerHTML = '';
-  postsList.innerHTML = '';
-  albumsList.innerHTML = '';
-
-  let searchInput = event.target.elements['search-input'].value;
-
-  fetch(`https://jsonplaceholder.typicode.com/users?username_like=${searchInput}`)
+  fetch(`https://jsonplaceholder.typicode.com/users?username=${searchPhrase}`)
     .then(res => res.json())
     .then(users => {
       if (users.length > 0) {
-
-
+  
+  
         usersListTitle.textContent = 'Users:'
         users.map(user => {
           let userItem = document.createElement('li');
           userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+  
           usersList.append(userItem);
-
-
         })
+  
+  
       } else {
-        fetch(`https://jsonplaceholder.typicode.com/users?name_like=${searchInput}`)
+        fetch(`https://jsonplaceholder.typicode.com/users?name=${searchPhrase}`)
           .then(res => res.json())
           .then(usersByName => {
             if (usersByName.length > 0) {
-
-
+  
+  
               usersListTitle.textContent = 'Users:'
               usersByName.map(user => {
                 let userItem = document.createElement('li');
                 userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
                 usersList.append(userItem);
               })
-
-
+  
+  
             } else {
-              fetch(`https://jsonplaceholder.typicode.com/users?email_like=${searchInput}`)
+              fetch(`https://jsonplaceholder.typicode.com/users?email=${searchPhrase}`)
                 .then(res => res.json())
                 .then(usersByEmail => {
                   if (usersByEmail.length > 0) {
-
-
+  
+  
                     usersListTitle.textContent = 'Users:'
                     usersByEmail.map(user => {
                       let userItem = document.createElement('li');
                       userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
                       usersList.append(userItem);
                     })
-
-
+  
+  
                   } else {
                     usersListTitle.textContent = 'Users not found.'
                   }
@@ -173,42 +76,136 @@ searchPageForm.addEventListener('submit', (event) => {
           })
       }
     })
+  
+  let postsUrl = `title=${searchPhrase}`;
+  renderAllPosts(postsUrl);
+  
+  let albumsUrl = `title=${searchPhrase}`;
+  renderAllAlbums(albumsUrl);
+}
 
-  fetch(`https://jsonplaceholder.typicode.com/posts?title_like=${searchInput}`)
+function innerSearchForm() {
+  let searchPageForm = document.querySelector('#first-form');
+  
+  searchPageForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+  
+    usersList.innerHTML = '';
+    postsList.innerHTML = '';
+    albumsList.innerHTML = '';
+  
+    let searchInput = event.target.elements['search-input'].value;
+  
+
+
+    let usersUsernameUrl = `username_like=${searchInput}`
+    renderUsersUsernameUrl(usersUsernameUrl)  
+
+    let usersNameUrl = `name_like=${searchInput}`
+    renderUserNameUrl(usersNameUrl)  
+    console.log(usersNameUrl)
+
+    let usersEmailUrl = `email_like=${searchInput}`
+    renderUserEmailElement(usersEmailUrl)  
+
+    let postsUrl = `title_like=${searchInput}`;
+    renderAllPosts(postsUrl);
+
+    let albumsUrl = `title_like=${searchInput}`;
+    renderAllAlbums(albumsUrl);
+  })
+}
+
+function renderAllPosts(searchText) {
+  fetch(`https://jsonplaceholder.typicode.com/posts?${searchText}`)
     .then(res => res.json())
     .then(posts => {
       if (posts.length > 0) {
-
-
         postsListTitle.textContent = 'Posts:';
         posts.map(post => {
           let postItem = document.createElement('li');
           postItem.innerHTML = `<a href="./post.html?post_id=${post.id}">${post.title}</a>`;
           postsList.append(postItem);
         })
-
-
       } else {
         postsListTitle.textContent = 'Posts not found.';
       }
     })
+}
 
-  fetch(`https://jsonplaceholder.typicode.com/albums?title_like=${searchInput}`)
+function renderAllAlbums(searchText) {
+  fetch(`https://jsonplaceholder.typicode.com/albums?${searchText}`)
     .then(res => res.json())
     .then(albums => {
       if (albums.length > 0) {
-  
-  
-        albumsListTitle.textContent = 'Albums:';
-        albums.map(album => {
-          let albumItem = document.createElement('li');
-          albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}">${album.title}</a>`;
-          albumsList.append(albumItem);
-        })
-  
-  
+        renderListElement(albums);
       } else {
         albumsListTitle.textContent = 'Albums not found.';
       }
     })
-})
+}
+
+function renderListElement(list) {
+  albumsListTitle.textContent = 'Albums:';
+  list.map(album => {
+    let albumItem = document.createElement('li');
+    albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}">${album.title}</a>`;
+    albumsList.append(albumItem);
+  })
+}
+
+function renderUserEmailElement(searchText) {
+  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
+  .then(res => res.json())
+  .then(usersByEmail => {
+    if (usersByEmail.length > 0) {
+      usersListTitle.textContent = 'Users:'
+      usersByEmail.map(user => {
+        let userItem = document.createElement('li');
+        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+        usersList.append(userItem);
+      })
+
+
+    } else {
+      usersListTitle.textContent = 'Users not found.'
+    }
+  })
+}
+
+function renderUserNameUrl(searchText) {
+  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
+  .then(res => res.json())
+  .then(usersByName => {
+    if (usersByName.length > 0) {
+      usersListTitle.textContent = 'Users:'
+      usersByName.map(user => {
+        let userItem = document.createElement('li');
+        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+        usersList.append(userItem);
+      })
+
+
+    } else {
+      usersListTitle.textContent = 'User not found'
+    }
+  })
+}
+
+function renderUsersUsernameUrl(searchText) {
+  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
+  .then(res => res.json())
+  .then(users => {
+    if (users.length > 0) {
+      usersListTitle.textContent = 'Users:'
+      users.map(user => {
+        let userItem = document.createElement('li');
+        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+        usersList.append(userItem);
+      })
+    } else {
+      usersListTitle.textContent = 'User email not found'
+    }
+  })
+}
+init();
