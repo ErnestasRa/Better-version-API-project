@@ -3,7 +3,15 @@ let postAlbumElementsTitle = document.createElement('h2')
 postAlbumElementsTitle.classList.add('post-album-elements-title')
 postAlbumElementsTitle.textContent = 'Albums:'
 
-fetch('https://jsonplaceholder.typicode.com/albums?_limit=30')
+function init() {
+  renderAllAlbums()
+}
+
+
+init()
+
+function renderAllAlbums() {
+  fetch('https://jsonplaceholder.typicode.com/albums?_limit=30')
   .then(res => res.json())
   .then(albums => {
 
@@ -34,3 +42,4 @@ fetch('https://jsonplaceholder.typicode.com/albums?_limit=30')
         })})
         document.body.append(postAlbumElementsTitle,albumsElement)
     })})
+}

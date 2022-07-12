@@ -5,6 +5,7 @@ let userId = urlParams.get('user_id');
 
 const userWrapper = document.getElementById('user-wrapper')
 
+function init() {
 
 fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
 .then(res => res.json())
@@ -86,4 +87,6 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
 })
 })
 })
-     
+}
+
+init()

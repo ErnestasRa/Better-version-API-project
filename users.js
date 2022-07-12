@@ -5,9 +5,17 @@ let userId = urlParams.get('user_id');
 let usersWrapper = document.getElementById('users-wrapper')
 usersWrapper.innerHTML = `<h1>Site users:</h1>`
 
-fetch(`https://jsonplaceholder.typicode.com/users`)
-.then(res => res.json())
-.then(users => {
+function init() {
+    allSiteUsers()
+}
+
+init()
+
+
+function allSiteUsers() {
+    fetch(`https://jsonplaceholder.typicode.com/users`)
+    .then(res => res.json())
+    .then(users => {
     let usersList = document.createElement('ul')
     users.map(user => {
         
@@ -25,3 +33,4 @@ fetch(`https://jsonplaceholder.typicode.com/users`)
     })
 })
 })
+}

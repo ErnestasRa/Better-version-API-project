@@ -25,18 +25,15 @@ function outerSearchForm() {
   let searchPhrase = urlParams.get('search-input');
 
   let userUsernameUrl = `username=${searchPhrase}`
-  renderUserUsernameUrl(userUsernameUrl)  
-
   let userNameOuterUrl = `name=${searchPhrase}`
-  renderUserNameOuterUrl(userNameOuterUrl)  
-
   let userEmailOuterUrl = `email=${searchPhrase}`
-  renderUserEmailOuterUrl(userEmailOuterUrl)  
-
   let postsUrl = `title=${searchPhrase}`;
-  renderAllPosts(postsUrl);
-  
   let albumsUrl = `title=${searchPhrase}`;
+
+  renderUserUsernameUrl(userUsernameUrl)  
+  renderUserNameOuterUrl(userNameOuterUrl)  
+  renderUserEmailOuterUrl(userEmailOuterUrl)  
+  renderAllPosts(postsUrl);
   renderAllAlbums(albumsUrl);
 }
 
@@ -178,7 +175,7 @@ function renderUserEmailOuterUrl(searchText) {
 
 
     } else {
-      usersListTitle.textContent = 'User not found.'
+      
     }
   })
 }
@@ -216,7 +213,7 @@ function renderUserUsernameUrl(searchText) {
       })
 
     } else {
-
+      usersListTitle.textContent = 'User not found'
     }
     
   })

@@ -1,5 +1,16 @@
 const postWrapper = document.getElementById('post-wrapper')
-fetch(`https://jsonplaceholder.typicode.com/posts?_limit=30`)
+
+
+
+function init() {
+    renderAllPosts()
+}
+
+
+init()
+
+function renderAllPosts() {
+    fetch(`https://jsonplaceholder.typicode.com/posts?_limit=30`)
 .then(res => res.json())
 .then(posts => {
    
@@ -46,3 +57,4 @@ fetch(`https://jsonplaceholder.typicode.com/comments/${post.id}/?_limit=30`)
 })
 })       
 })
+}

@@ -6,12 +6,20 @@ let userId = urlParams.get('user_id')
 let userName = urlParams.get('user_name')
 
 
-let albumItemWrapper = document.getElementById('album-item-wrapper')
-albumItemWrapper.innerHTML = `<h1>Album:</h1>`
 
-fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos?_limit=20`)
-.then(res => res.json())
-.then(photos => {
+function init(){
+    renderAlbum()
+}
+
+function renderAlbum() {
+    let albumItemWrapper = document.getElementById('album-item-wrapper')
+    albumItemWrapper.innerHTML = `<h1>Album:</h1>`
+
+
+
+    fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos?_limit=20`)
+    .then(res => res.json())
+    .then(photos => {
     let albumElement = document.createElement('div')
     albumElement.classList.add('album-element')
 
@@ -33,3 +41,6 @@ fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos?_limit=20`)
     albumItemWrapper.append(albumElement)
  
 })
+}
+
+init()

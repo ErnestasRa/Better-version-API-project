@@ -11,7 +11,9 @@ let postBody = urlParams.get('post_body')
 let postWrapper = document.getElementById('post-wrapper')
 postWrapper.innerHTML = `<h1>Post page:</h1>`
 
-fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+
+function renderPost() {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
 .then(res => res.json())
 .then(posts => {
     let postTitleElement = document.createElement('h2')
@@ -45,3 +47,12 @@ fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
     postCommentsWrapper.append( postCommentsTitle,postCommentsBody,postCommentsEmail)
     postWrapper.append(postTitleElement,postBodyElement,postAuthorElement,commentsElement,postCommentsWrapper)
 })})     })
+
+}
+function init() {
+    renderPost()
+}
+
+init()
+
+
