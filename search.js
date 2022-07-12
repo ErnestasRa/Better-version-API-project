@@ -18,65 +18,21 @@ function init() {
   innerSearchForm();
 }
 
+
 function outerSearchForm() {
   let queryParams = document.location.search;
   let urlParams = new URLSearchParams(queryParams);
   let searchPhrase = urlParams.get('search-input');
 
-  fetch(`https://jsonplaceholder.typicode.com/users?username=${searchPhrase}`)
-    .then(res => res.json())
-    .then(users => {
-      if (users.length > 0) {
-  
-  
-        usersListTitle.textContent = 'Users:'
-        users.map(user => {
-          let userItem = document.createElement('li');
-          userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
-  
-          usersList.append(userItem);
-        })
-  
-  
-      } else {
-        fetch(`https://jsonplaceholder.typicode.com/users?name=${searchPhrase}`)
-          .then(res => res.json())
-          .then(usersByName => {
-            if (usersByName.length > 0) {
-  
-  
-              usersListTitle.textContent = 'Users:'
-              usersByName.map(user => {
-                let userItem = document.createElement('li');
-                userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
-                usersList.append(userItem);
-              })
-  
-  
-            } else {
-              fetch(`https://jsonplaceholder.typicode.com/users?email=${searchPhrase}`)
-                .then(res => res.json())
-                .then(usersByEmail => {
-                  if (usersByEmail.length > 0) {
-  
-  
-                    usersListTitle.textContent = 'Users:'
-                    usersByEmail.map(user => {
-                      let userItem = document.createElement('li');
-                      userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
-                      usersList.append(userItem);
-                    })
-  
-  
-                  } else {
-                    usersListTitle.textContent = 'Users not found.'
-                  }
-                })
-            } 
-          })
-      }
-    })
-  
+  let userUsernameUrl = `username=${searchPhrase}`
+  renderUserUsernameUrl(userUsernameUrl)  
+
+  let userNameOuterUrl = `name=${searchPhrase}`
+  renderUserNameOuterUrl(userNameOuterUrl)  
+
+  let userEmailOuterUrl = `email=${searchPhrase}`
+  renderUserEmailOuterUrl(userEmailOuterUrl)  
+
   let postsUrl = `title=${searchPhrase}`;
   renderAllPosts(postsUrl);
   
@@ -95,16 +51,13 @@ function innerSearchForm() {
     albumsList.innerHTML = '';
   
     let searchInput = event.target.elements['search-input'].value;
-  
-
 
     let usersUsernameUrl = `username_like=${searchInput}`
     renderUsersUsernameUrl(usersUsernameUrl)  
 
     let usersNameUrl = `name_like=${searchInput}`
     renderUserNameUrl(usersNameUrl)  
-    console.log(usersNameUrl)
-
+    
     let usersEmailUrl = `email_like=${searchInput}`
     renderUserEmailElement(usersEmailUrl)  
 
@@ -208,4 +161,67 @@ function renderUsersUsernameUrl(searchText) {
     }
   })
 }
+
+function renderUserEmailOuterUrl(searchText) {
+  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
+  .then(res => res.json())
+  .then(usersByEmail => {
+    if (usersByEmail.length > 0) {
+
+
+      usersListTitle.textContent = 'Users:'
+      usersByEmail.map(user => {
+        let userItem = document.createElement('li');
+        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+        usersList.append(userItem);
+      })
+
+
+    } else {
+      usersListTitle.textContent = 'User not found.'
+    }
+  })
+}
+
+function  renderUserNameOuterUrl(searchText){
+  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
+  .then(res => res.json())
+  .then(usersByName => {
+    if (usersByName.length > 0) {
+      usersListTitle.textContent = 'Users:'
+      usersByName.map(user => {
+        let userItem = document.createElement('li');
+        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+        usersList.append(userItem);
+      })
+
+
+    } else {
+
+    } 
+  })
+}
+
+function renderUserUsernameUrl(searchText) {
+  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
+  .then(res => res.json())
+  .then(users => {
+    if (users.length > 0) {
+      usersListTitle.textContent = 'Users:'
+      users.map(user => {
+        let userItem = document.createElement('li');
+        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+
+        usersList.append(userItem);
+      })
+
+    } else {
+
+    }
+    
+  })
+}
+
 init();
+
+
