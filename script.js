@@ -1,8 +1,14 @@
 const postWrapper = document.getElementById('post-wrapper')
-fetch(`https://jsonplaceholder.typicode.com/posts?_limit=15`)
-.then(res => res.json())
-.then(posts => {
-   
+
+    function init() {
+      renderMainPage()
+    }
+
+    function renderMainPage() {
+      fetch(`https://jsonplaceholder.typicode.com/posts?_limit=15`)
+      .then(res => res.json())
+      .then(posts => {
+        
     posts.map(post => {
         let updatedTitle = post.title[0].toUpperCase() + post.title.slice(1);
         let postItem = document.createElement('div')
@@ -29,15 +35,15 @@ fetch(`https://jsonplaceholder.typicode.com/posts?_limit=15`)
         postWrapper.append(postItem)
        
 fetch(`https://jsonplaceholder.typicode.com/users/${post.userId}`)
-.then(res => res.json())
-.then( users => {
-    
+  .then(res => res.json())
+  .then( users => {
+      
     postAuthor.innerHTML = `<a href="./user.html?user_id=${users.id}"> <strong>${users.name}</strong> </a>`
     
 
 fetch(`https://jsonplaceholder.typicode.com/comments/${post.id}/?_limit=30`)
-.then(res => res.json())
-.then(comments => {
+  .then(res => res.json())
+  .then(comments => {
        postCommentsTitle.textContent = comments.name
        postCommentsBody.textContent = comments.body 
        postCommentsEmail.textContent = comments.email
@@ -84,3 +90,8 @@ fetch('https://jsonplaceholder.typicode.com/albums?_limit=30')
         })})
         document.body.append(postAlbumElementsTitle,albumsElement)
     })})
+
+    }
+
+
+    init()
