@@ -77,3 +77,16 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
   }  
+
+
+  ul {
+    background: #fff7f478;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 30rem;
+  }
+  ul a {
+    font-size: 30px;
+  }
