@@ -6,16 +6,14 @@ let userId = urlParams.get('user_id')
 let userName = urlParams.get('user_name')
 let postBody = urlParams.get('post_body')
 
-
-
 let postWrapper = document.getElementById('post-wrapper')
 postWrapper.innerHTML = `<h1>Post page:</h1>`
 
 
 function renderPost() {
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-.then(res => res.json())
-.then(posts => {
+        .then(res => res.json())
+        .then(posts => {
     let postTitleElement = document.createElement('h2')
     postTitleElement.innerHTML = `${postTitle}`
     let postAuthorElement = document.createElement('h3')

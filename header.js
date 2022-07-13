@@ -1,6 +1,4 @@
 
-
-
 let navigationItems =  [
     {
         title: 'Home',
@@ -39,11 +37,6 @@ navigationItems.map(navItem => {
     nav.append(navItemLink)
     
 })
-
-
-
-
-
 header.append(nav)
 if(!pathName.includes('search.html')) {
 
