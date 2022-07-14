@@ -18,9 +18,7 @@ function init() {
     renderUser()
 }
 
-
 init()
-
 
 function renderUser(){
     let pageName = document.createElement('h1')

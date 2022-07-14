@@ -59,24 +59,14 @@ const postWrapper = document.getElementById('post-wrapper')
                    let albumItem = document.createElement('div');
                     albumItem.classList.add('album-item');
                     let albumItemTitle = document.createElement('h3')
-      
                     let albumUsername = document.createElement('h5')
-                    
-                   
                     let albumPhotoElement = document.createElement('img')
-      
-                        
                     renderListElement({
                         content: albums.name,
                         href:`./user.html?user_id=${albums.id}`,
                         parentElement: albumItemTitle,
                         class: 'album-element'
                     })
-
-                    
-                  
-
-
                     albums.albums.map(album => {
                       albumItemTitle.innerHTML = `${album.title}`
                       fetch(`https://jsonplaceholder.typicode.com/albums/${album.id}?_embed=photos&_limit=1`)
@@ -86,7 +76,6 @@ const postWrapper = document.getElementById('post-wrapper')
                                   albumPhotoElement.src = `${photo.thumbnailUrl}`
 
                               })
-                              
                           })
                       })
                       albumsElement.append(albumUsername,albumItemTitle,albumPhotoElement)
