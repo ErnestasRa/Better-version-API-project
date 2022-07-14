@@ -20,7 +20,7 @@ function allSiteUsers() {
     users.map(user => {
             renderListElement({
                 content: `${user.name} (has ${user.posts.length} posts)`,
-                href:`./user.html?user_id=${user.id}`,
+                href:`./user.html?user_id=${user.id}&user_name=${user.name}`,
                 parentElement: usersWrapper,
                 class: 'user-element'
             })

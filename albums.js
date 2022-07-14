@@ -40,7 +40,6 @@ function renderAlbumsByUserId(id) {
       .then(res => res.json())
       .then(albums => {
         albums.map(singleAlbum => {
-
           let albumData = {
             album: singleAlbum,
             title: `Albums of ${singleAlbum.user.name}:`,
