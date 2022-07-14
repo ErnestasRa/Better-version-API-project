@@ -11,6 +11,9 @@ postWrapper.innerHTML = `<h1>Post page:</h1>`
 
 
 function renderPost() {
+    fetch(``)
+
+
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
         .then(res => res.json())
         .then(posts => {
@@ -27,8 +30,8 @@ function renderPost() {
    
 
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`)
-        .then(res => res.json())
-        .then(comments => {
+            .then(res => res.json())
+            .then(comments => {
             comments.map(comment => {
                 let postCommentsTitle = document.createElement('h5')
                 postCommentsTitle.classList.add('post-comments-title')
