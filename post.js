@@ -11,9 +11,6 @@ postWrapper.innerHTML = `<h1>Post page:</h1>`
 
 
 function renderPost() {
-    fetch(``)
-
-
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
         .then(res => res.json())
         .then(posts => {

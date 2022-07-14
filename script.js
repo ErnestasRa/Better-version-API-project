@@ -61,7 +61,7 @@ const postWrapper = document.getElementById('post-wrapper')
                     let albumItemTitle = document.createElement('h3')
       
                     let albumUsername = document.createElement('h5')
-                    // albumUsername.innerHTML = `<a href="./user.html?user_id=${albums.id}">${albums.name}</a>`
+                    
                    
                     let albumPhotoElement = document.createElement('img')
       
