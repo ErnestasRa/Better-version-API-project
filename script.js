@@ -28,7 +28,7 @@ const postWrapper = document.getElementById('post-wrapper')
                       postCommentsEmail.classList.add('post-comments-email')
                       let postAuthor = document.createElement('span')
                       postAuthor.classList.add('post-author')
-                      postAuthor.innerHTML = `<a href="./user.html?user_id=${datas.id}"> <strong>${datas.name}</strong> </a>`
+                      postAuthor.innerHTML = `<a href="./user.html?user_id=${datas.id}&user_name=${datas.name}"> <strong>${datas.name}</strong> </a>`
                       
                       postItem.append(postAuthor,postBody,postCommentsTitle,postCommentsBody,postCommentsEmail)
                       postWrapper.append(postItem)
