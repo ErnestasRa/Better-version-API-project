@@ -18,14 +18,12 @@ function allSiteUsers() {
     .then(users => {
     let usersList = document.createElement('ul')
     users.map(user => {
-        let postsNumber = document.createElement('span')
-        postsNumber.classList.add('user-item')
-        postsNumber.textContent = `Has ${user.posts.length} posts`
-        let userItem = document.createElement('li')
-        userItem.classList.add('user-item')
-        userItem.innerHTML = `<a href="./user.html?user_id=${user.id}">${user.name}</a>`
-        
-                usersList.append(userItem,postsNumber)
+            renderListElement({
+                content: `${user.name} (has ${user.posts.length} posts)`,
+                href:`./user.html?user_id=${user.id}`,
+                parentElement: usersWrapper,
+                class: 'user-element'
+            })
                 usersWrapper.append(usersList)
     })
 })

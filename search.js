@@ -108,12 +108,7 @@ function renderAllAlbums(searchText) {
     })
 }
 
-function renderListElement(data) {
-    let itemElement = document.createElement('li');
-    itemElement.classList.add('search-item')
-    itemElement.innerHTML = `<a href="${data.href}">${data.content}</a>`;
-    data.parentElement.append(itemElement);
-}
+
 
 function renderUserEmailElement(searchText) {
   fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)

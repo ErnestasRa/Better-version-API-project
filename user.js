@@ -31,7 +31,7 @@ function renderUser(){
        
                let userName = document.createElement('li')
                userName.classList.add('user-name')
-               userName.innerHTML = `<strong>Name:</strong> ${user.name} (${user.username})`
+               userName.innerHTML = `<strong>Name:</strong> <a href="./user.html?user_id=${user.id}"> ${user.name} </a>(${user.username})`
        
                let userEmail = document.createElement('li')
                userEmail.classList.add('user-email')
@@ -70,24 +70,28 @@ function renderUser(){
        userWrapper.append(userItem)
 
        user.posts.map(post => {
-          let titleElement = document.createElement('h3')
-           titleElement.innerHTML = `<a href="./post.html?post_id=${post.id}&post_title=${post.title}&user_name=${user.name}&post_body=${post.body}">${post.title}</a>`
-           userPosts.append(titleElement)
+             renderListElement({
+            content: post.title,
+            href: `./post.html?post_id=${post.id}&post_title=${post.title}&user_name=${user.name}&post_body=${post.body}`,
+            class: 'title-element',
+            parentElement: userPosts
+           })
        })
 
        fetch(`https://jsonplaceholder.typicode.com/users/${userId}?_embed=albums`)
        .then(res => res.json())
        .then(albums => {
-         albums.albums.map(album => {
-                   let albumElementTitle = document.createElement('h4')
-                   albumElementTitle.innerHTML = `<a href="./album.html?album_id=${album.id}&album_title=${album.title}&user_name=${user.name}&user_id=${userId}">${album.title}</a>`
-                   userAlbums.append(albumElementTitle)    
+         albums.albums.map(album => {  
+                   renderListElement({
+                    content: album.title,
+                    href: `./albums.html?user_id=${user.id}&album_title=${album.title}&user_name=${user.name}`,
+                    parentElement: userAlbums,
+                    class: 'user-album'
+                   })
          })
        })
 
    })
 }
-
-
 
 init()

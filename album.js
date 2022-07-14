@@ -14,9 +14,7 @@ function init(){
 function renderAlbum() {
     let albumItemWrapper = document.getElementById('album-item-wrapper')
     albumItemWrapper.innerHTML = `<h1>Album:</h1>`
-
-
-
+    
     fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos?_limit=20`)
     .then(res => res.json())
     .then(photos => {
@@ -27,16 +25,26 @@ function renderAlbum() {
     albumTitleElement.innerHTML = `${albumTitle}`
 
     let albumAuthor = document.createElement('h5')
-    albumAuthor.innerHTML = `<a href="./user.html?user_id=${userId}">${userName}</a>`
+    albumAuthor.innerHTML = `<strong>Author:</strong> <a href="./user.html?user_id=${userId}">${userName}</a>`
 
     let albumPhotosElement = document.createElement('div')
     albumPhotosElement.classList.add('album-photos-element')
+        
+    let albumImgElement = document.createElement('img')    
     
+
+
     photos.map(photo => {
-        let albumImgElement = document.createElement('img')
-        albumImgElement.src = `${photo.thumbnailUrl}`
-        albumPhotosElement.append(albumImgElement)
+        
+        renderListElement({
+            content: `<img src="${photo.thumbnailUrl}">`,
+            href: ``,
+            parentElement: albumPhotosElement,
+            class: 'album-photos'
+        })
+
     }) 
+    
     albumElement.append(albumTitleElement,albumAuthor,albumPhotosElement)
     albumItemWrapper.append(albumElement)
  
