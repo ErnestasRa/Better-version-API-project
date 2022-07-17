@@ -1,3 +1,6 @@
+import{renderListElement, toUpperCase} from "./export.js"
+
+
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
 let userId = urlParams.get('user_id');
@@ -19,7 +22,7 @@ function allSiteUsers() {
     let usersList = document.createElement('ul')
     users.map(user => {
             renderListElement({
-                content: `${user.name} (has ${user.posts.length} posts)`,
+                content: `${toUpperCase(user.name)} (has ${user.posts.length} posts)`,
                 href:`./user.html?user_id=${user.id}&user_name=${user.name}`,
                 parentElement: usersWrapper,
                 class: 'user-element'

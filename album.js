@@ -22,10 +22,10 @@ function renderAlbum() {
     albumElement.classList.add('album-element')
 
     let albumTitleElement = document.createElement('h4')
-    albumTitleElement.innerHTML = `${albumTitle}`
+    albumTitleElement.innerHTML = `${toUpperCase(albumTitle)}`
 
     let albumAuthor = document.createElement('h5')
-    albumAuthor.innerHTML = `<strong>Author:</strong> <a href="./user.html?user_id=${userId}">${userName}</a>`
+    albumAuthor.innerHTML = `<strong>Author:</strong> <a href="./user.html?user_id=${userId}&user_name="${userName}">${userName}</a>`
 
     let albumPhotosElement = document.createElement('div')
     albumPhotosElement.classList.add('album-photos-element')

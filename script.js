@@ -1,3 +1,5 @@
+import{renderListElement,toUpperCase} from "./export.js"
+
 const postWrapper = document.getElementById('post-wrapper')
 
     function init() {
@@ -10,7 +12,7 @@ const postWrapper = document.getElementById('post-wrapper')
       .then(data => {
           data.map(datas => {
               datas.posts.map(post => {
-                      let updatedTitle = post.title[0].toUpperCase() + post.title.slice(1);
+                      let updatedTitle = toUpperCase(post.title)
                       let postItem = document.createElement('div')
                       postItem.classList.add('post-item')
       
@@ -28,7 +30,7 @@ const postWrapper = document.getElementById('post-wrapper')
                       postCommentsEmail.classList.add('post-comments-email')
                       let postAuthor = document.createElement('span')
                       postAuthor.classList.add('post-author')
-                      postAuthor.innerHTML = `<a href="./user.html?user_id=${datas.id}&user_name=${datas.name}"> <strong>${datas.name}</strong> </a>`
+                      postAuthor.innerHTML = `<a href="./user.html?user_id=${datas.id}&user_name=${datas.name}"> <strong>${toUpperCase(datas.name)}</strong> </a>`
                       
                       postItem.append(postAuthor,postBody,postCommentsTitle,postCommentsBody,postCommentsEmail)
                       postWrapper.append(postItem)
@@ -37,9 +39,9 @@ const postWrapper = document.getElementById('post-wrapper')
                       .then(res => res.json())
                       .then(comments => {
                           comments.map(comment => {
-                              postCommentsTitle.innerHTML = `${comment.name}`
-                              postCommentsBody.innerHTML = `${comment.body}`
-                              postCommentsEmail.innerHTML = `${comment.email}`
+                              postCommentsTitle.innerHTML = toUpperCase(comment.name)
+                              postCommentsBody.innerHTML =  toUpperCase(comment.body)
+                              postCommentsEmail.innerHTML = toUpperCase(comment.email)
                       })
                    })
               })
@@ -62,7 +64,7 @@ const postWrapper = document.getElementById('post-wrapper')
                     let albumUsername = document.createElement('h5')
                     let albumPhotoElement = document.createElement('img')
                     renderListElement({
-                        content: albums.name,
+                        content: toUpperCase(albums.name),
                         href:`./user.html?user_id=${albums.id}`,
                         parentElement: albumItemTitle,
                         class: 'album-element'
