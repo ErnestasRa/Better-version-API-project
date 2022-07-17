@@ -1,3 +1,5 @@
+
+
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
 let albumId = urlParams.get('album_id');
