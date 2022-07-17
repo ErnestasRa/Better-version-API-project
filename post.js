@@ -26,7 +26,7 @@ function renderPost() {
     commentsElement.textContent = 'Post comments:'
    
 
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`)
+ fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`)
             .then(res => res.json())
             .then(comments => {
             comments.map(comment => {
@@ -41,12 +41,14 @@ function renderPost() {
                 postCommentsTitle.textContent = comment.name
                 postCommentsBody.textContent = comment.body 
                 postCommentsEmail.textContent = comment.email
-         
-    postCommentsWrapper.append( postCommentsTitle,postCommentsBody,postCommentsEmail)
-    postWrapper.append(postTitleElement,postBodyElement,postAuthorElement,commentsElement,postCommentsWrapper)
-})})     })
+            
+        postCommentsWrapper.append( postCommentsTitle,postCommentsBody,postCommentsEmail)
+        postWrapper.append(postTitleElement,postBodyElement,postAuthorElement,commentsElement,postCommentsWrapper)
+        })
+        })    
+    })
 
-}
+    }
 function init() {
     renderPost()
 }
