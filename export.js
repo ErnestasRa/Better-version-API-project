@@ -1,6 +1,3 @@
-export let test = 'labas'
-export let test2= 'sveikas'
-
 
 export function renderListElement(data) {
     let itemElement = document.createElement('li');

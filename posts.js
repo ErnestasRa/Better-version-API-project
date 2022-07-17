@@ -1,7 +1,5 @@
 import{ renderUserByIdPosts, renderAllUserPosts } from "./export.js"
 
-
-
 function init() {
     renderAllPosts()
 }
