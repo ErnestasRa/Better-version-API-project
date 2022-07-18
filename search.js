@@ -1,5 +1,5 @@
 import{toUpperCase, renderListElement } from "./functions.js"
-import headerElement from "./header.js"
+import  headerElement from "./header/header.js"
 headerElement()
 let searchResults = document.querySelector('#search-wrapper');
 let usersList = document.createElement('ul');

@@ -1,4 +1,4 @@
-import headerElement from "./header.js"
+import  headerElement from "./header/header.js"
 headerElement()
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);

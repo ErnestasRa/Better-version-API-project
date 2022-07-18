@@ -1,5 +1,5 @@
-import { toUpperCase } from "./functions.js";
-import headerElement from "./header.js"
+import { toUpperCase } from "../functions.js";
+import  headerElement from "../header/header.js"
 headerElement()
 
 let albumsWrapper = document.querySelector('#albums-wrapper');

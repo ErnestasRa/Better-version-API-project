@@ -1,5 +1,5 @@
 import{renderListElement,toUpperCase} from "./export.js"
-import  headerElement from "./header.js"
+import  headerElement from "./header/header.js"
 headerElement()
 const postWrapper = document.getElementById('post-wrapper')
 

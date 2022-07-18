@@ -1,5 +1,5 @@
 
-import headerElement from "./header.js"
+import  headerElement from "../header/header.js"
 import renderAlbum from "./albumView.js"
 
 headerElement()

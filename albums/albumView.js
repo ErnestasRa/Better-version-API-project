@@ -1,4 +1,4 @@
-import{toUpperCase, renderListElement} from "./functions.js"
+import{toUpperCase, renderListElement} from "../functions.js"
 
 
 function renderAlbum() {
