@@ -1,34 +1,14 @@
-import{renderListElement, toUpperCase} from "./export.js"
 
+import headerElement from "./header.js"
+import studentList from "./studentsListView.js"
+headerElement()
+function usersPageInit() {
 
-let queryParams = document.location.search;
-let urlParams = new URLSearchParams(queryParams);
-let userId = urlParams.get('user_id');
-
-let usersWrapper = document.getElementById('users-wrapper')
-usersWrapper.innerHTML = `<h1>Site users:</h1>`
-
-function init() {
-    allSiteUsers()
-}
-
-init()
-
-
-function allSiteUsers() {
-    fetch(`https://jsonplaceholder.typicode.com/users?_embed=posts`)
-    .then(res => res.json())
-    .then(users => {
-    let usersList = document.createElement('ul')
-    users.map(user => {
-            renderListElement({
-                content: `${toUpperCase(user.name)} (has ${user.posts.length} posts)`,
-                href:`./user.html?user_id=${user.id}&user_name=${user.name}`,
-                parentElement: usersWrapper,
-                class: 'user-element'
-            })
-                usersWrapper.append(usersList)
-    })
-})
-}
-
+    fetch('https://jsonplaceholder.typicode.com/users?_embed=posts')
+      .then(res => res.json())
+      .then(usersData => {
+        studentList(usersData)
+      })
+  }
+  
+  usersPageInit();

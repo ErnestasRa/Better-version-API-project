@@ -1,5 +1,7 @@
-// import{renderStudentPosts, renderStudentAlbums} from "./export.js"
+import{renderListElement, toUpperCase} from "./functions.js"
+import headerElement from "./header.js"
 
+headerElement()
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
 let userId = urlParams.get('user_id');
@@ -13,8 +15,6 @@ userPosts.innerHTML = 'User posts:'
 let userAlbums = document.createElement('ul')
 userPosts.classList.add('user-albums')
 userAlbums.innerHTML = 'User albums:'
-
-
 
 function init() {
     renderUser()
@@ -37,9 +37,6 @@ function renderUser(){
    
 }
 
-
-
-
 function renderStudentData(data) {
   
     let userItem = document.createElement('div')
@@ -58,7 +55,7 @@ function renderStudentData(data) {
 
     let userName = document.createElement('li')
     userName.classList.add('user-name')
-    userName.innerHTML = `<strong>Name:</strong> <a href="./user.html?user_id=${data.id}"> ${data.name} </a>(${data.username})`
+    userName.innerHTML = `<strong>Name:</strong> <a href="./user.html?user_id=${data.id}&user_name=${data.name}"> ${data.name} </a>(${data.username})`
 
     let userEmail = document.createElement('li')
     userEmail.classList.add('user-email')
@@ -88,5 +85,28 @@ function renderStudentData(data) {
     userWrapper.append(userItem,userPosts,userAlbums)
 }
 
-
+function renderStudentAlbums() {
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}?_embed=albums`)
+    .then(res => res.json())
+    .then(albums => {
+      albums.albums.map(album => {  
+                renderListElement({
+                 content: album.title,
+                 href: `./albums.html?user_id=${userId}&album_title=${album.title}&user_name=${userName}`,
+                 parentElement: userAlbums,
+                 class: 'user-album',
+                })
+      })
+    })
+   } 
+function renderStudentPosts(data) {
+    data.posts.map(post => {
+    renderListElement({
+            content: toUpperCase(post.title),
+            href: `./post.html?post_id=${post.id}&post_title=${post.title}&user_name=${userName}&post_body=${post.body}`,
+            class: 'title-element',
+            parentElement: userPosts,
+        })
+})
+}   
 

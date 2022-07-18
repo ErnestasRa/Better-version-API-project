@@ -1,3 +1,6 @@
+import{toUpperCase, renderListElement } from "./functions.js"
+import headerElement from "./header.js"
+headerElement()
 let searchResults = document.querySelector('#search-wrapper');
 let usersList = document.createElement('ul');
 let usersListTitle = document.createElement('h3');
@@ -107,8 +110,6 @@ function renderAllAlbums(searchText) {
       }
     })
 }
-
-
 
 function renderUserEmailElement(searchText) {
   fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)

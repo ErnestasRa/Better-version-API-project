@@ -1,4 +1,4 @@
-function renderListElement(data) {
+export function renderListElement(data) {
     let itemElement = document.createElement('li');
     
     if(data.class) {
@@ -11,31 +11,41 @@ function renderListElement(data) {
 
 }
 
-function toUpperCase(str) {
+export function toUpperCase(str) {
     return str[0].toUpperCase() + str.slice(1)
 }   
 
-function renderStudentAlbums() {
-    fetch(`https://jsonplaceholder.typicode.com/users/${userId}?_embed=albums`)
-    .then(res => res.json())
-    .then(albums => {
-      albums.albums.map(album => {  
-                renderListElement({
-                 content: album.title,
-                 href: `./albums.html?user_id=${userId}&album_title=${album.title}&user_name=${userName}`,
-                 parentElement: userAlbums,
-                 class: 'user-album',
-                })
-      })
-    })
-   } 
-function renderStudentPosts(data) {
-    data.posts.map(post => {
-    renderListElement({
-            content: toUpperCase(post.title),
-            href: `./post.html?post_id=${post.id}&post_title=${post.title}&user_name=${userName}&post_body=${post.body}`,
-            class: 'title-element',
-            parentElement: userPosts,
+export function renderAllAlbums() {
+    fetch('https://jsonplaceholder.typicode.com/albums?_expand=user&_embed=photos&_limit=15')
+      .then(res => res.json())
+      .then(albums => {
+      
+        albums.map(singleAlbum => {
+          renderSingleAlbum({
+            album: singleAlbum,
+            title: 'All albums:',
+            createdBy: `<div>Album created by: <a href="./user.html?user_id=${singleAlbum.user.id}">${singleAlbum.user.name}</a></div>`,
+          });
         })
-})
-}   
+      })
+  }
+
+
+export function renderSingleAlbum(data) {
+    let albumItemWrapper = document.getElementById('album-item-wrapper')
+    let albumsWrapperTitle = document.createElement('h2');
+    let {album, title, createdBy} = data;
+  
+    let albumItem = document.createElement('div');
+    albumItem.classList.add('album-item');
+    
+    albumsWrapperTitle.textContent = title;
+  
+    let randomIndex = Math.floor(Math.random() * album.photos.length);
+  
+    albumItem.innerHTML = `<h3><a href="./album.html?album_id=${album.id}&album_title=${album.title}&user_id=${album.userId}&user_name=${album.user.name}">${album.title}</a> (${album.photos.length})</h3>
+                          ${createdBy}
+                          <img src="${album.photos[randomIndex].thumbnailUrl}">`;
+  
+    albumsWrapper.prepend(albumItem);
+  }

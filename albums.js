@@ -1,4 +1,6 @@
-
+import { toUpperCase } from "./functions.js";
+import headerElement from "./header.js"
+headerElement()
 
 let albumsWrapper = document.querySelector('#albums-wrapper');
 let albumsWrapperTitle = document.createElement('h2');
@@ -36,7 +38,7 @@ function renderAllAlbums() {
   fetch('https://jsonplaceholder.typicode.com/albums?_expand=user&_embed=photos&_limit=15')
     .then(res => res.json())
     .then(albums => {
-      console.log(albums);
+    
       albums.map(singleAlbum => {
         renderSingleAlbum({
           album: singleAlbum,

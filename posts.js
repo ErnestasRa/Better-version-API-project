@@ -1,5 +1,6 @@
 import{ renderUserByIdPosts, renderAllUserPosts } from "./export.js"
-
+import headerElement from "./header.js"
+headerElement()
 function init() {
     renderAllPosts()
 }
