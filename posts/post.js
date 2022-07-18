@@ -1,8 +1,11 @@
 import  headerElement from "../header/header.js"
+import {getPostById,getPostByIdComments} from "./postsController.js"
+
 headerElement()
+
+
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
-let postId = urlParams.get('post_id');
 let postTitle = urlParams.get('post_title')
 let userName = urlParams.get('user_name')
 let postBody = urlParams.get('post_body')
@@ -10,11 +13,10 @@ let postBody = urlParams.get('post_body')
 let postWrapper = document.getElementById('post-wrapper')
 postWrapper.innerHTML = `<h1>Post page:</h1>`
 
+async function renderPost() {
 
-function renderPost() {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-        .then(res => res.json())
-        .then(posts => {
+     await getPostById()
+
     let postTitleElement = document.createElement('h2')
     postTitleElement.innerHTML = `${postTitle}`
     let postAuthorElement = document.createElement('h3')
@@ -27,9 +29,7 @@ function renderPost() {
     commentsElement.textContent = 'Post comments:'
    
 
- fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`)
-            .then(res => res.json())
-            .then(comments => {
+     let comments = await getPostByIdComments()
             comments.map(comment => {
                 let postCommentsTitle = document.createElement('h5')
                 postCommentsTitle.classList.add('post-comments-title')
@@ -45,11 +45,9 @@ function renderPost() {
             
         postCommentsWrapper.append( postCommentsTitle,postCommentsBody,postCommentsEmail)
         postWrapper.append(postTitleElement,postBodyElement,postAuthorElement,commentsElement,postCommentsWrapper)
-        })
-        })    
-    })
-
-    }
+     })
+ }    
+    
 function init() {
     renderPost()
 }

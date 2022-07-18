@@ -3,8 +3,8 @@ import{ toUpperCase } from "../export.js"
 
 async function getAllUserPosts() {
     let res = await fetch(`https://jsonplaceholder.typicode.com/users?_embed=posts`)
-    let AllPosts  = await res.json();
-    return AllPosts;
+    let allPosts  = await res.json();
+    return allPosts;
    }
 
 async function getUserPostsById() {
@@ -93,10 +93,27 @@ async function renderUserByIdPosts(id){
         }
     }
     
+async function getPostById() {
+    let queryParams = document.location.search;
+    let urlParams = new URLSearchParams(queryParams);
+    let postId = urlParams.get('post_id');
 
+     let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+     let postById = await res.json()
+     return postById   
+}
 
+async function getPostByIdComments() {
+    let queryParams = document.location.search;
+    let urlParams = new URLSearchParams(queryParams);
+    let postId = urlParams.get('post_id');
 
-export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts}   
+    let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`)
+    let postByIdComments = res.json()
+    return postByIdComments
+}
+
+export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments}   
 
 
 
