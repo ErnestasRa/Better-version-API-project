@@ -1,10 +1,9 @@
-import  headerElement from "./header/header.js"
+import  headerElement from "../header/header.js"
 headerElement()
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
 let postId = urlParams.get('post_id');
 let postTitle = urlParams.get('post_title')
-let userId = urlParams.get('user_id')
 let userName = urlParams.get('user_name')
 let postBody = urlParams.get('post_body')
 

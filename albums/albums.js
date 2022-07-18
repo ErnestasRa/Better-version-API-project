@@ -1,4 +1,4 @@
-import { toUpperCase } from "../functions.js";
+import { getAllAlbums, getAlbumById } from "./albumsController.js";
 import  headerElement from "../header/header.js"
 headerElement()
 
@@ -18,27 +18,21 @@ function init() {
   }
 }
 
-function renderAlbumsByUserId(id) {
-  fetch(`https://jsonplaceholder.typicode.com/users/${id}/albums?_embed=photos&_expand=user`)
-    .then(res => res.json())
-    .then(albums => {
+async function renderAlbumsByUserId(id) {
+    let albums = await getAlbumById(id)
       albums.map(singleAlbum => {
         let albumData = {
           album: singleAlbum,
           title: `Albums of ${singleAlbum.user.name}:`,
           createdBy: '',
         }
-
         renderSingleAlbum(albumData);
       })
-    })
-}
+    }
 
-function renderAllAlbums() {
-  fetch('https://jsonplaceholder.typicode.com/albums?_expand=user&_embed=photos&_limit=15')
-    .then(res => res.json())
-    .then(albums => {
-    
+
+async function renderAllAlbums() {
+    let albums = await getAllAlbums()
       albums.map(singleAlbum => {
         renderSingleAlbum({
           album: singleAlbum,
@@ -46,8 +40,8 @@ function renderAllAlbums() {
           createdBy: `<div>Album created by: <a href="./user.html?user_id=${singleAlbum.user.id}">${singleAlbum.user.name}</a></div>`,
         });
       })
-    })
-}
+    }
+
 
 function renderSingleAlbum(data) {
 
