@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a post!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="form-wrapper"></div>
     <form id="post-form">
         <div>
             <label for="post-title">Enter post title:</label>
-             <input type="text" name="post-title" id="post-title">
+            <input type="text" name="post-title" id="post-title">
         </div>
         <div>
             <label for="post-body">Enter post content:</label>
-            <textarea name="post-body" id="post-body" cols="10" rows="3"></textarea>
+            <textarea name="post-body" id="post-body" cols="20" rows="1"></textarea>
         </div>
         <div>
             <select name="post-users" id="post-users">
@@ -24,8 +24,9 @@
         </div>
         
         <button type="submit">Submit form</button>
-
+        
     </form>
+    <div id="form-wrapper"></div>
 
     <script type="module" src="createPost/create-post.js"></script>
 </body>

@@ -6,6 +6,24 @@
     box-sizing: border-box;
   }
 
+#post-form {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 5rem;
+}
+.post-div {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 20px;
+  text-align: center;
+}
+
+
+
 body {
     background-color: #5e3030;
     color: lightgrey;
