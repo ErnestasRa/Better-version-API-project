@@ -16,6 +16,10 @@
             title: 'Posts',
             path: 'posts.html'
         },
+        {
+            title: 'Create post',
+            path: 'create-post.html'
+        }
     ]
     
     
