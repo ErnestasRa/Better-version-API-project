@@ -1,53 +1,54 @@
 import{renderListElement,toUpperCase} from "./export.js"
 import  headerElement from "./header/header.js"
+import{getUsersAlbums, getAlbumsByIdPhoto} from "./albums/albumsController.js"
+import{getAllUserPosts, commentsByPostId} from "./posts/postsController.js"
+
 headerElement()
+
 const postWrapper = document.getElementById('post-wrapper')
 
     function init() {
       renderMainPage()
     }
 
-    function renderMainPage() {
-      fetch(`https://jsonplaceholder.typicode.com/users?_embed=posts&_limit=3`)
-      .then(res => res.json())
-      .then(data => {
-          data.map(datas => {
-              datas.posts.map(post => {
-                      let updatedTitle = toUpperCase(post.title)
-                      let postItem = document.createElement('div')
-                      postItem.classList.add('post-item')
-      
-                      let postBody = document.createElement('p')
-                      postBody.classList.add('post-body')
-                      postBody.innerHTML = `<strong>${updatedTitle}</strong>`
-      
-                      let postCommentsTitle = document.createElement('h5')
-                      postCommentsTitle.classList.add('post-comments-title')
-      
-                      let postCommentsBody = document.createElement('p')
-                      postCommentsBody.classList.add('post-comments-body')
-      
-                      let postCommentsEmail = document.createElement('h6')
-                      postCommentsEmail.classList.add('post-comments-email')
-                      let postAuthor = document.createElement('span')
-                      postAuthor.classList.add('post-author')
-                      postAuthor.innerHTML = `<a href="./user.html?user_id=${datas.id}&user_name=${datas.name}"> <strong>${toUpperCase(datas.name)}</strong> </a>`
-                      
-                      postItem.append(postAuthor,postBody,postCommentsTitle,postCommentsBody,postCommentsEmail)
-                      postWrapper.append(postItem)
-                     
-                      fetch(`https://jsonplaceholder.typicode.com/comments?postId=${post.id}`)
-                      .then(res => res.json())
-                      .then(comments => {
-                          comments.map(comment => {
-                              postCommentsTitle.innerHTML = toUpperCase(comment.name)
-                              postCommentsBody.innerHTML =  toUpperCase(comment.body)
-                              postCommentsEmail.innerHTML = toUpperCase(comment.email)
-                      })
-                   })
-              })
-          })
-      })
+   async  function renderMainPage() {
+        let data = await getAllUserPosts()
+            data.map(datas => {
+                datas.posts.map(async post => {
+                        let updatedTitle = toUpperCase(post.title)
+                        let postItem = document.createElement('div')
+                        postItem.classList.add('post-item')
+        
+                        let postBody = document.createElement('p')
+                        postBody.classList.add('post-body')
+                        postBody.innerHTML = `<strong>${updatedTitle}</strong>`
+        
+                        let postCommentsTitle = document.createElement('h5')
+                        postCommentsTitle.classList.add('post-comments-title')
+        
+                        let postCommentsBody = document.createElement('p')
+                        postCommentsBody.classList.add('post-comments-body')
+        
+                        let postCommentsEmail = document.createElement('h6')
+                        postCommentsEmail.classList.add('post-comments-email')
+                        let postAuthor = document.createElement('span')
+                        postAuthor.classList.add('post-author')
+                        postAuthor.innerHTML = `<a href="./user.html?user_id=${datas.id}&user_name=${datas.name}"> <strong>${toUpperCase(datas.name)}</strong> </a>`
+                        
+                        postItem.append(postAuthor,postBody,postCommentsTitle,postCommentsBody,postCommentsEmail)
+                        postWrapper.append(postItem)
+                       
+                        let comments = await commentsByPostId(post.id)
+                            comments.map(comment => {
+                                postCommentsTitle.innerHTML = toUpperCase(comment.name)
+                                postCommentsBody.innerHTML =  toUpperCase(comment.body)
+                                postCommentsEmail.innerHTML = toUpperCase(comment.email)
+                        })
+                     })
+                })
+            }
+        
+    
       let albumsElement = document.createElement('div')
       albumsElement.classList.add('albums-element')
       let postAlbumElementsTitle = document.createElement('h2')
@@ -55,9 +56,7 @@ const postWrapper = document.getElementById('post-wrapper')
       postAlbumElementsTitle.textContent = 'Albums:'
       
       
-      fetch(`https://jsonplaceholder.typicode.com/users?_embed=albums`)
-      .then(res => res.json())
-      .then(data => {
+      let data = await getUsersAlbums()
           data.map(albums => {
                    let albumItem = document.createElement('div');
                     albumItem.classList.add('album-item');
@@ -70,22 +69,15 @@ const postWrapper = document.getElementById('post-wrapper')
                         parentElement: albumItemTitle,
                         class: 'album-element'
                     })
-                    albums.albums.map(album => {
+                    albums.albums.map(async album => {
                       albumItemTitle.innerHTML = `${album.title}`
-                      fetch(`https://jsonplaceholder.typicode.com/albums/${album.id}?_embed=photos&_limit=1`)
-                      .then (res => res.json())
-                      .then(photos => {
-                              photos.photos.map(photo => {
+                      let pics = await getAlbumsByIdPhoto(album.id)
+                             pics.photos.map(photo => {
                                   albumPhotoElement.src = `${photo.thumbnailUrl}`
-
                               })
                           })
+                          albumsElement.append(albumUsername,albumItemTitle,albumPhotoElement)
+                          document.body.append(albumsElement)
                       })
-                      albumsElement.append(albumUsername,albumItemTitle,albumPhotoElement)
-                    })
-          })
-          document.body.append(albumsElement)
-    }
-
 
     init()

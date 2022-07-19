@@ -1,6 +1,6 @@
 import{renderListElement, toUpperCase} from "./functions.js"
 import  headerElement from "./header/header.js"
-
+import {postsByUserId, albumsByUserId} from "./users/usersController.js"
 headerElement()
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
@@ -11,7 +11,7 @@ const userWrapper = document.getElementById('user-wrapper')
 let userPosts = document.createElement('ul')
 userPosts.classList.add('user-posts')
 userPosts.innerHTML = 'User posts:'
-
+ 
 let userAlbums = document.createElement('ul')
 userPosts.classList.add('user-albums')
 userAlbums.innerHTML = 'User albums:'
@@ -22,21 +22,16 @@ function init() {
 
 init()
 
-function renderUser(){
+async function renderUser(){
     let pageName = document.createElement('h1')
     pageName.textContent = 'User page'
-
-   fetch(`https://jsonplaceholder.typicode.com/users/${userId}?_embed=posts`)
-   .then(res => res.json())
-   .then(user => {
+    let user = await postsByUserId()
             renderStudentData(user)
             renderStudentPosts(user)    
             renderStudentAlbums()
-   })
-   document.body.prepend(pageName)
+            document.body.prepend(pageName)
+   }
    
-}
-
 function renderStudentData(data) {
   
     let userItem = document.createElement('div')
@@ -85,10 +80,8 @@ function renderStudentData(data) {
     userWrapper.append(userItem,userPosts,userAlbums)
 }
 
-function renderStudentAlbums() {
-    fetch(`https://jsonplaceholder.typicode.com/users/${userId}?_embed=albums`)
-    .then(res => res.json())
-    .then(albums => {
+async function renderStudentAlbums() {
+    let albums = await albumsByUserId()
       albums.albums.map(album => {  
                 renderListElement({
                  content: album.title,
@@ -97,8 +90,8 @@ function renderStudentAlbums() {
                  class: 'user-album',
                 })
       })
-    })
-   } 
+    }
+   
 function renderStudentPosts(data) {
     data.posts.map(post => {
     renderListElement({

@@ -113,7 +113,17 @@ async function getPostByIdComments() {
     return postByIdComments
 }
 
-export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments}   
+async function commentsByPostId(PostId) {
+    let res = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${PostId}`)
+    let CommentsById = await res.json()
+    return CommentsById
+}
+
+
+
+
+
+export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId}   
 
 
 
