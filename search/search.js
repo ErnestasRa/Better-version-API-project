@@ -1,7 +1,7 @@
-import{ renderListElement } from "./functions.js"
-import  headerElement from "./header/header.js"
+import{ renderListElement } from "../functions.js"
+import  headerElement from "../header/header.js"
+import { searchPosts, searchAlbums, userInfo} from "./searchController.js"
 
-headerElement()
 let searchResults = document.querySelector('#search-wrapper');
 let usersList = document.createElement('ul');
 let usersListTitle = document.createElement('h3');
@@ -18,6 +18,7 @@ postsList.before(postsListTitle);
 albumsList.before(albumsListTitle);
 
 function init() {
+  headerElement()
   outerSearchForm();
   innerSearchForm();
 }
@@ -70,10 +71,8 @@ function innerSearchForm() {
   })
 }
 
-function renderAllPosts(searchText) {
-  fetch(`https://jsonplaceholder.typicode.com/posts?${searchText}`)
-    .then(res => res.json())
-    .then(posts => {
+async function renderAllPosts(searchText) {
+  let posts = await searchPosts(searchText)
       if (posts.length > 0) {
         postsListTitle.textContent = 'Posts:';
         posts.map(post => {
@@ -87,35 +86,27 @@ function renderAllPosts(searchText) {
       } else {
         postsListTitle.textContent = 'Posts not found.';
       }
-    })
-}
+    }
 
-function renderAllAlbums(searchText) {
-  fetch(`https://jsonplaceholder.typicode.com/albums?${searchText}`)
-    .then(res => res.json())
-    .then(albums => {
+
+async function renderAllAlbums(searchText) {
+ let albums = await searchAlbums(searchText)
       albumsListTitle.textContent = 'Albums:';
       if (albums.length > 0) {
         albums.map(album => {
-    
         renderListElement({
           content: album.title,
           href:`./album.html?album_id=${album.id}`,
           parentElement: albumsListTitle
         })
-
-
         })
-      } else {
-        albumsListTitle.textContent = 'Albums not found.';
-      }
-    })
-}
+      } 
+      return  albumsListTitle.textContent = 'Albums not found.';
+    }
 
-function renderUserEmailElement(searchText) {
-  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
-  .then(res => res.json())
-  .then(usersByEmail => {
+
+async function renderUserEmailElement(searchText) {
+  let usersByEmail = await userInfo(searchText)
     if (usersByEmail.length > 0) {
       usersListTitle.textContent = 'Users:'
       usersByEmail.map(user => {
@@ -126,18 +117,14 @@ function renderUserEmailElement(searchText) {
           parentElement: usersList
         })
       })
-
-
     } else {
-      
-    }
-  })
-}
+      return usersListTitle.textContent = 'User data not found :('
+    } 
+  }
 
-function renderUserNameUrl(searchText) {
-  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
-  .then(res => res.json())
-  .then(usersByName => {
+
+async function renderUserNameUrl(searchText) {
+  let usersByName = await userInfo(searchText)
     if (usersByName.length > 0) {
       usersListTitle.textContent = 'Users:'
       usersByName.map(user => {
@@ -149,15 +136,13 @@ function renderUserNameUrl(searchText) {
       })
 
     } else {
-     usersListTitle.textContent = 'User not found'
+     return  usersListTitle.textContent = 'User data not found :('
     }
-  })
-}
+  }
 
-function renderUsersUsernameUrl(searchText) {
-  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
-  .then(res => res.json())
-  .then(users => {
+
+async function renderUsersUsernameUrl(searchText) {
+  let users = await userInfo(searchText)
     if (users.length > 0) {
       usersListTitle.textContent = 'Users:'
       users.map(user => {
@@ -165,19 +150,17 @@ function renderUsersUsernameUrl(searchText) {
           content: user.name,
           href:`./user.html?user_id=${user.id}`,
           parentElement: usersList
-        })
+          })
         
-      })
-    } return
-  })
-}
-
-function renderUserEmailOuterUrl(searchText) {
-  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
-  .then(res => res.json())
-  .then(usersByEmail => {
+        }) 
+      } else {
+        return usersListTitle.textContent = 'Username not found :('
+      }
+    } 
+  
+async  function renderUserEmailOuterUrl(searchText) {
+ let usersByEmail = await userInfo(searchText)
     if (usersByEmail.length > 0) {
-
       usersListTitle.textContent = 'Users:'
       usersByEmail.map(user => {
         renderListElement({
@@ -186,14 +169,14 @@ function renderUserEmailOuterUrl(searchText) {
           parentElement: usersList
         })
       })
-    } return
-  })
-}
+    } else {
+      return usersListTitle.textContent = 'User email not found :('
+    }
+  }
 
-function  renderUserNameOuterUrl(searchText){
-  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
-  .then(res => res.json())
-  .then(usersByName => {
+
+async function  renderUserNameOuterUrl(searchText){
+  let usersByName = await userInfo(searchText)
     if (usersByName.length > 0) {
       usersListTitle.textContent = 'Users:'
       usersByName.map(user => {
@@ -203,14 +186,14 @@ function  renderUserNameOuterUrl(searchText){
           parentElement: usersList
         })
       })
-    } return 
-  })
-}
+    } else {
+      return usersListTitle.textContent = 'User name not found :('
+    }
+  }
 
-function renderUserUsernameUrl(searchText) {
-  fetch(`https://jsonplaceholder.typicode.com/users?${searchText}`)
-  .then(res => res.json())
-  .then(users => {
+
+async  function renderUserUsernameUrl(searchText) {
+  let users = await userInfo(searchText)
     if (users.length > 0) {
       usersListTitle.textContent = 'Users:'
       users.map(user => {
@@ -221,10 +204,10 @@ function renderUserUsernameUrl(searchText) {
         })
       })
 
-    } return usersListTitle.textContent = 'User not found'
-    
-  })
-}
+    } else {
+      return usersListTitle.textContent = 'User not found'
+    }
+  }
 
 init();
 
