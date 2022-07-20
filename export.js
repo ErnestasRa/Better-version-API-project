@@ -1,38 +1,17 @@
-import{renderListElement, toUpperCase} from "./functions.js"
-import  headerElement from "./header/header.js"
-import {postsByUserId, albumsByUserId} from "./users/usersController.js"
-headerElement()
-let queryParams = document.location.search;
-let urlParams = new URLSearchParams(queryParams);
-let userId = urlParams.get('user_id');
-let userName = urlParams.get('user_name')
-const userWrapper = document.getElementById('user-wrapper')
 
-let userPosts = document.createElement('ul')
-userPosts.classList.add('user-posts')
-userPosts.innerHTML = 'User posts:'
- 
-let userAlbums = document.createElement('ul')
-userPosts.classList.add('user-albums')
-userAlbums.innerHTML = 'User albums:'
-
-function init() {
-    renderUser()
+export function renderListElement(data) {
+    let itemElement = document.createElement('li');
+    if(data.class) {
+        itemElement.classList.add(data.class)
+    }
+    itemElement.innerHTML = `<a href="${data.href}">${data.content}</a>`;
+    data.parentElement.append(itemElement);
 }
+export function toUpperCase(str) {
+    return str[0].toUpperCase() + str.slice(1)
+}   
 
-init()
-
-async function renderUser(){
-    let pageName = document.createElement('h1')
-    pageName.textContent = 'User page'
-    let user = await postsByUserId()
-            renderStudentData(user)
-            renderStudentPosts(user)    
-            renderStudentAlbums()
-            document.body.prepend(pageName)
-   }
-   
-function renderStudentData(data) {
+ export function renderStudentData(data) {
   
     let userItem = document.createElement('div')
     userItem.classList.add('user-item')
@@ -50,7 +29,7 @@ function renderStudentData(data) {
 
     let userName = document.createElement('li')
     userName.classList.add('user-name')
-    userName.innerHTML = `<strong>Name:</strong> <a href="./user.html?user_id=${data.id}&user_name=${data.name}"> ${data.name} </a>(${data.username})`
+    userName.innerHTML = `<strong>Name:</strong> <a href="./user.html?user_id=${data.id}"> ${data.name} </a>(${data.username})`
 
     let userEmail = document.createElement('li')
     userEmail.classList.add('user-email')
@@ -79,9 +58,10 @@ function renderStudentData(data) {
     userItem.append(ulElement)
     userWrapper.append(userItem,userPosts,userAlbums)
 }
-
-async function renderStudentAlbums() {
-    let albums = await albumsByUserId()
+export function renderStudentAlbums() {
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}?_embed=albums`)
+    .then(res => res.json())
+    .then(albums => {
       albums.albums.map(album => {  
                 renderListElement({
                  content: album.title,
@@ -90,9 +70,10 @@ async function renderStudentAlbums() {
                  class: 'user-album',
                 })
       })
-    }
-   
-function renderStudentPosts(data) {
+    })
+   } 
+export function renderStudentPosts(data) {
+    
     data.posts.map(post => {
     renderListElement({
             content: toUpperCase(post.title),
@@ -101,5 +82,4 @@ function renderStudentPosts(data) {
             parentElement: userPosts,
         })
 })
-}   
-
+}

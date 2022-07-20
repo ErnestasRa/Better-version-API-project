@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create User</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form id="create-user-form">
+    <div class="form-control">
+      <label for="name">Name:</label>
+      <input type="text" name="name" value="Vardenis" id="name">
+    </div>
+
+    <div class="form-control">
+      <label for="username">Username:</label>
+      <input type="text" value="arbuzas" name="username" id="username">
+    </div>
+
+    <div class="form-control">
+      <label for="user-email">User email:</label>
+      <input type="email" value="vardenis@arbuzas.lt" name="useremail" id="user-email">
+    </div>
+    <div class="form-control">
+      <label for="user-address">User City:</label>
+      <input type="text" name="useraddresscity" value="kaunas" id="user-address-city">
+      <br>
+      <label for="useraddressstreet">Street:</label>
+      <input type="text" name="useraddressstreet" value="taikos pr" id="user-address-street">
+      <br>
+      <label for="useraddresssuite">Suite:</label>
+      <input type="text" name="useraddresssuite" value="idk" id="user-address-suite">
+      <br>
+      <label for="useraddresszipcode">Zipcode :</label>
+      <input type="text" name="useraddresszipcode" value="213123123" id="user-address-zipcode">
+    </div>
+    <div class="form-control">
+      <label for="user-phone">User phone:</label>
+      <input type="number" name="userphone" value="12312312312" id="user-phone">
+    </div>
+    <div class="form-control">
+      <label for="user-website">User website:</label>
+      <input type="text" name="userwebsite" value="arbuzas.lt"  id="user-website">
+    </div>
+
+    <input type="submit" value="Create user">
+  </form>
+  
+  <script type="module" src="./createUser/createUser.js"></script>
+</body>
+</html>
