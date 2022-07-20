@@ -1,14 +1,19 @@
 export function renderListElement(data) {
     let itemElement = document.createElement('li');
-    
     if(data.class) {
         itemElement.classList.add(data.class)
     }
-
     itemElement.innerHTML = `<a href="${data.href}">${data.content}</a>`;
     data.parentElement.append(itemElement);
 
+}
 
+export function renderOptionElement(data) {
+  let optionElement = document.createElement('option');
+  optionElement.textContent = data.content;
+  optionElement.value = data.value;
+
+  data.parentElement.append(optionElement);
 }
 
 export function toUpperCase(str) {

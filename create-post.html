@@ -1,43 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a post!</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create post</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form id="post-form">
-        <div>
-            <label for="post-title">Enter post title:</label>
-            <input type="text" name="post-title" id="post-title">
-        </div>
-        <div>
-            <label for="post-body">Enter post content:</label>
-            <textarea name="post-body" id="post-body" cols="20" rows="1"></textarea>
-        </div>
-        <div>
-            <select name="post-users" id="post-users">
-            </select>
-            
-        </div>
-        
-        <button type="submit">Submit form</button>
-        
-    </form>
-    <div id="form-wrapper"></div>
+  <form id="create-post-form">
+    <div class="form-control">
+      <label for="post-title">Post title:</label>
+      <input type="text" name="title" id="post-title">
+    </div>
 
-    <script type="module" src="createPost/create-post.js"></script>
+    <div class="form-control">
+      <label for="post-content">Post content:</label>
+      <textarea name="content" id="post-content" cols="50" rows="10"></textarea>
+    </div>
+
+    <div class="form-control">
+      <label for="post-author">Post author:</label>
+      <select name="author" id="post-author">
+        <!-- <option value="1">Pirmas vardas</option>
+        <option value="2">Antras vardas</option>
+        <option value="3">Trecias vardas</option> -->
+      </select>
+    </div>
+
+    <input type="submit" value="Create post">
+  </form>
+  
+  <script type="module" src="./createPost/createPost.js"></script>
 </body>
 </html>
-
-<!-- 12. Sukurti puslapį create-post.html
-12.1 Puslapyje sukurti formą. Ji turės:
-12.1.1. Input elementą posto pavadinimui įvesti.
-12.1.2. Textarea elementą posto turiniui įvesti.
-12.1.3. Select elementą, kuriame būtų atvaizduojami visų vartotojų vardai (option elementų value naudoti vartotojų id).
-12.2. Formos submit metu:
-12.2.1. Iš formos duomenų suformuluoti objektą pagal API reikalavimus.
-12.2.2. Su šiais duomenimis išsiųsti POST užklausą pagal API reikalavimus.
-12.2.3. Iš užklausos atsakymo gautų duomenų suformoluoti HTML elementą ir juos išvesti į ekraną. -->
