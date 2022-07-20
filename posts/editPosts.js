@@ -19,7 +19,8 @@ postEditAuthorInput.value = userName
 
 editForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    fetch('https://jsonplaceholder.typicode.com/posts/1', {
+   let authorInputEl =  e.target.author.value
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
      method: 'PUT',
      body: JSON.stringify({
     id: `${postId}`,
@@ -34,7 +35,7 @@ editForm.addEventListener('submit', (e) => {
 })
   .then((response) => response.json())
   .then((json) => {
-    console.log(json)
+    
     let editedPostDiv = document.createElement('ul')
     editedPostDiv.classList.add('edited-post')
 
@@ -45,15 +46,15 @@ editForm.addEventListener('submit', (e) => {
     postBodyElement.innerHTML = `<strong>Post content:</strong> ${json.body}`
 
     let postAuthorElement = document.createElement('li')
-    postAuthorElement.innerHTML = `<strong>Post author:</strong> ${json.author}`
-
+    postAuthorElement.innerHTML = `<strong>Post author:</strong> ${authorInputEl}`
     let postIdElement = document.createElement('li')
     postIdElement.innerHTML = `<strong>Post id:</strong> ${postId}`
-
+    
     editedPostDiv.append(postTitleElement,postBodyElement,postAuthorElement, postIdElement)
     document.body.append(editedPostDiv)
-  });
-  e.target.reset()
+});
+e.target.reset()
+    
 
 })
 
