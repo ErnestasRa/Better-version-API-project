@@ -19,6 +19,10 @@
         {
             title: 'Create post',
             path: 'create-post.html'
+        },
+        {
+            title: 'Create user',
+            path: 'createUser.html'
         }
     ]
     

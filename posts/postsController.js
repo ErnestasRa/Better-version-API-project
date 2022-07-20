@@ -40,7 +40,12 @@ async function renderAllUserPosts() {
                        postBody.innerHTML = `<strong><a href="./post.html?post_id=${post.id}&post_title=${post.title}&user_name=${user.name}&post_body=${post.body}">${updatedTitle}</a></strong>`   
                        postAuthor.innerHTML = `<a href="./user.html?user_id=${user.id}&user_name=${user.name}"> <strong>${user.name}</strong> </a>`
                        
-                       postItem.append(postAuthor,postBody,postCommentsTitle,postCommentsBody,postCommentsEmail)
+                       let postEditButton = document.createElement('span')
+                       postEditButton.innerHTML = `<a href="./edit-post.html?post_id=${post.id}&post_title=${post.title}&user_name=${user.name}&post_body=${post.body}">Edit post</a>` 
+
+
+
+                       postItem.append(postAuthor,postBody, postEditButton,postCommentsTitle,postCommentsBody,postCommentsEmail)
                        postWrapper.append(postItem)
 
            })
