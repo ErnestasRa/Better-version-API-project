@@ -124,11 +124,22 @@ async function commentsByPostId(PostId) {
     return CommentsById
 }
 
+async function editPost(post,postId) {
+    let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+        method: 'PUT',
+        body: JSON.stringify(post),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+  
+    let createdPost = await res.json();
+    return createdPost;
+  }
 
 
 
-
-export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId}   
+export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId, editPost}   
 
 
 
