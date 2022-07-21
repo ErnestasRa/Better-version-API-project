@@ -137,9 +137,26 @@ async function editPost(post,postId) {
     return createdPost;
   }
 
+  async function editComment(post) {
+    let res = await fetch(`https://jsonplaceholder.typicode.com/comments/`, {
+        method: 'POST',
+        body: JSON.stringify(post),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+  
+    let editedComment = await res.json();
+    return editedComment;
+  }
 
+async function getCommentByCommentId(id){
+  let res = await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`)
+  let allComments = res.json()
+  return allComments
+}
 
-export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId, editPost}   
+export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId, editPost, editComment, getCommentByCommentId}   
 
 
 

@@ -90,5 +90,15 @@ body {
   .albums-element h3 {
     width: 5rem;
     justify-content: center;
-    text-align: center;
+    
   }
+  h3{
+    text-align: left;
+  }
+  .edit-comment-title {
+    text-align: left;
+  }
+
+#create-comment-form {
+  text-align: left;
+}

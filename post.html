@@ -9,6 +9,19 @@
 </head>
 <body>
     <div id="post-wrapper"></div>
+    <form id="create-comment-form">
+        <h3 class="edit-comment-title">Create comment:</h3>
+        <label for="title">Comment title:</label>
+        <input type="text" name="title" id="comment-title">
+        <br>
+        <label for="body">Comment:</label>
+        <textarea name="body" id="comment-content" cols="10" rows="1" ></textarea>
+        <br>
+        <label for="email">Comment email:</label>
+        <input type="email" name="email" id="comment-email">
+        <br>
+        <button type="submit">Submit comment</button>
+    </form>
     <script type="module" src="./posts/post.js"></script>
    
 </body>
