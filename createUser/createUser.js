@@ -1,10 +1,12 @@
 import headerElement from "../header/header.js"
 import {createUser} from "./createUserController.js"
 import {createAddress} from "./createUserView.js"
+import{fetchAllUsers} from "../users/usersController.js"
+
 
   init()
 
-  function init() {
+ async function init() {
     headerElement()
     const createUserForm = document.getElementById('create-user-form')
     createUserForm.addEventListener('submit', async (e) => {
@@ -36,6 +38,30 @@ import {createAddress} from "./createUserView.js"
         let editedAddress = await createUser(newUser)
         createAddress(editedAddress)
       });
+
+createUserForm.addEventListener('change', async (e) => {
+  e.preventDefault()
+  let usernameElement = e.target.value
+  let allUsers = await fetchAllUsers()
+  allUsers.map(user => {
+    let usernames = user.username
+    let filtered = usernames.filter(username.includes(usernameElement))
+    console.log(filtered)
+  })
+ 
+
+
+  console.log(usernameElement)
+})
+
+
+
+
+
+
+
+
+
   }
 
 

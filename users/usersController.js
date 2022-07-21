@@ -22,5 +22,11 @@ async function albumsByUserId() {
    return userAlbums
 }
 
+async function fetchAllUsers() {
+   let res = await fetch('https://jsonplaceholder.typicode.com/users')
+   let allUsers = await res.json()
+   return allUsers
+}
 
-export {getAllUsers, postsByUserId,albumsByUserId}
+
+export {getAllUsers, postsByUserId,albumsByUserId, fetchAllUsers}
