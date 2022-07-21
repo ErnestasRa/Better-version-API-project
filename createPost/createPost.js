@@ -23,12 +23,6 @@ async function init() {
   createPostForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     
-    // let createdPost = await createNewPost({
-    //   title: event.target.elements.title.value,
-    //   body: event.target.elements.content.value,
-    //   userId: event.target.elements.author.value,
-    // });
-
     let newPostTitle = event.target.elements.title.value;
     let newPostContent = event.target.elements.content.value;
     let newPostAuthor = event.target.elements.author.value;
