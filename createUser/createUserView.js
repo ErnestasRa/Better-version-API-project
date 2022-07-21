@@ -1,7 +1,10 @@
+import {formErrorHandler} from "../functions.js"
+
+
 export async function createAddress(createdUser) {
     let {name, username, email, phone, website, id} = createdUser
     let {street, suite, city, zipcode} = createdUser.address
-    console.log(createdUser.address.street)
+    
     let userDiv = document.createElement('div')
     userDiv.classList.add('user-div')
     let userElement = document.createElement('ul')
