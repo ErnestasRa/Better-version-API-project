@@ -21,7 +21,7 @@ export default async function editedPost(createdPost) {
 
 
  export async function commentsView(createdComment,appender) {
-    let {title,body, email} = createdComment
+    let {title,body, email, id} = createdComment
     let newCommentDiv = document.createElement('div')
     newCommentDiv.classList.add('new-comment-div')
 
@@ -34,15 +34,19 @@ export default async function editedPost(createdPost) {
     let postCommentsEmail = document.createElement('h6')
     postCommentsEmail.classList.add('post-comments-email')
 
-    let editCommentButton = document.createElement('button')
-    editCommentButton.setAttribute("id","edit-comment-button")
-    editCommentButton.innerHTML = `Edit me`
+    let commentId = document.createElement('span')
+    commentId.classList.add('comment-id')
+
+    let editButton = document.createElement('button')
+    editButton.setAttribute("id", "edit-comment-button")
+    editButton.innerHTML = `Edit comment`
 
 
     postCommentsTitle.textContent = title
+    commentId.textContent = `${id}`
     postCommentsBody.textContent = body 
     postCommentsEmail.textContent = email
 
-    newCommentDiv.append(postCommentsTitle, postCommentsBody, postCommentsEmail, editCommentButton)
+    newCommentDiv.append(commentId,postCommentsTitle, postCommentsBody, postCommentsEmail,editButton)
     appender.append(newCommentDiv)
   }

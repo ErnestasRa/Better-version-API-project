@@ -114,7 +114,7 @@ async function getPostByIdComments() {
     let postId = urlParams.get('post_id');
 
     let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`)
-    let postByIdComments = res.json()
+    let postByIdComments = await res.json()
     return postByIdComments
 }
 
@@ -156,7 +156,25 @@ async function getCommentByCommentId(id){
   return allComments
 }
 
-export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId, editPost, editComment, getCommentByCommentId}   
+
+
+async function PutComment(post,id){
+  let res = await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(post),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+  
+    let editedComment = await res.json();
+    return editedComment;
+}
+
+
+
+
+export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId, editPost, editComment, getCommentByCommentId, PutComment}   
 
 
 
