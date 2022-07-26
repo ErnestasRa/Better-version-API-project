@@ -1,57 +1,55 @@
 import  headerElement from "../header/header.js"
-import {getPostById,getPostByIdComments} from "./postsController.js"
-
+import {getPostById,getPostByIdComments, editComment, getCommentByCommentId, } from "./postsController.js"
+import {commentsView} from "./postsView.js"
 headerElement()
-
-
+  
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
-let postTitle = urlParams.get('post_title')
-let userName = urlParams.get('user_name')
-let postBody = urlParams.get('post_body')
+let postId = urlParams.get('post_id')
 
 let postWrapper = document.getElementById('post-wrapper')
 postWrapper.innerHTML = `<h1>Post page:</h1>`
 
-async function renderPost() {
 
-     await getPostById()
+    await getPostById()
+        let postCommentsWrapper = document.createElement('div')
+        postCommentsWrapper.classList.add('post-comments-wrapper')
+        let commentsElement = document.createElement('h2')
+        commentsElement.textContent = 'Post comments:'
 
-    let postTitleElement = document.createElement('h2')
-    postTitleElement.innerHTML = `${postTitle}`
-    let postAuthorElement = document.createElement('h3')
-    postAuthorElement.innerHTML = `${userName}`
-    let postBodyElement = document.createElement('p')
-    postBodyElement.innerHTML = `${postBody}`
-    let postCommentsWrapper = document.createElement('div')
-    postCommentsWrapper.classList.add('post-comments-wrapper')
-    let commentsElement = document.createElement('h2')
-    commentsElement.textContent = 'Post comments:'
-   
-
-     let comments = await getPostByIdComments()
+    let comments = await getPostByIdComments()
             comments.map(comment => {
-                let postCommentsTitle = document.createElement('h5')
-                postCommentsTitle.classList.add('post-comments-title')
-            
-                let postCommentsBody = document.createElement('p')
-                postCommentsBody.classList.add('post-comments-body')
-            
-                let postCommentsEmail = document.createElement('h6')
-                postCommentsEmail.classList.add('post-comments-email')
-                postCommentsTitle.textContent = comment.name
-                postCommentsBody.textContent = comment.body 
-                postCommentsEmail.textContent = comment.email
-            
-        postCommentsWrapper.append( postCommentsTitle,postCommentsBody,postCommentsEmail)
-        postWrapper.append(postTitleElement,postBodyElement,postAuthorElement,commentsElement,postCommentsWrapper)
-     })
- }    
-    
-function init() {
-    renderPost()
-}
+                let commentData = {
+                    title: comment.name,
+                    body: comment.body,
+                    email: comment.email,
+                    id: comment.id,
+                }
+                commentsView(commentData,postCommentsWrapper)
+             })
+             let commentForm = document.getElementById('create-comment-form')
+                commentForm.addEventListener('submit', async (e) => {
+                 e.preventDefault()
 
-init()
+                 let titleElement = e.target.title.value  
+                 let bodyElement = e.target.body.value 
+                 let emailElement = e.target.email.value
 
+                let commentData = {
+                    postId: Number(postId),
+                    name: `${titleElement}`, 
+                    body: `${bodyElement}`,
+                    email: `${emailElement}`
+                } 
 
+                let newComment = await editComment(commentData)
+                commentsView(newComment, postCommentsWrapper)   
+
+                commentForm.reset()   
+                
+             })
+             
+
+         
+         document.body.append(postCommentsWrapper)
+      

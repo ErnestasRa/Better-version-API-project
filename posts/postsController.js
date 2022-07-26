@@ -112,9 +112,8 @@ async function getPostByIdComments() {
     let queryParams = document.location.search;
     let urlParams = new URLSearchParams(queryParams);
     let postId = urlParams.get('post_id');
-
     let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`)
-    let postByIdComments = res.json()
+    let postByIdComments = await res.json()
     return postByIdComments
 }
 
@@ -137,9 +136,40 @@ async function editPost(post,postId) {
     return createdPost;
   }
 
+  async function editComment(post) {
+    let res = await fetch(`https://jsonplaceholder.typicode.com/comments/`, {
+        method: 'POST',
+        body: JSON.stringify(post),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+  
+    let editedComment = await res.json();
+    return editedComment;
+  }
+
+async function getCommentByCommentId(id){
+  let res = await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`)
+  let allComments = await res.json()
+  return allComments
+}
 
 
-export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId, editPost}   
+async function editedPost(post,postId) {
+   let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments/`, {
+    method: 'PATCH',
+    body: JSON.stringify(post),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+       },
+    })
+    let eComment = await res.json()
+    return eComment; 
+}
+
+
+export{getAllUserPosts, getUserPostsById, renderAllUserPosts,renderUserByIdPosts, renderAllPosts, getPostById,getPostByIdComments, commentsByPostId, editPost, editComment, getCommentByCommentId, editedPost}   
 
 
 

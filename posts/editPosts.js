@@ -1,6 +1,6 @@
 import headerElement from "../header/header.js"
 import {editPost} from "./postsController.js"
-import editedPost from "./postsView.js"
+import commentsView from "./postsView.js"
 
 init()
 
@@ -30,9 +30,9 @@ editForm.addEventListener('submit', async (e) => {
     author:`${authorInputEl}`,
     id: `${postId}`
   };
-  let postEdited = await editPost(newPost, postId)
+  let editComment = await editPost(newPost, postId)
   
-  editedPost(postEdited)
+  commentsView(editComment)
     e.target.reset()
 });
 
