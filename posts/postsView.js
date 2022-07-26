@@ -45,7 +45,7 @@ export default async function editedPost(createdPost) {
     postCommentsBody.textContent = body 
     postCommentsEmail.textContent = email
 
-    editButton.addEventListener('click', (e) => {
+    editButton.addEventListener('click', () => {
       let commentForm = document.getElementById('create-comment-form')
 
       let commentTitle = createdComment.title
@@ -56,7 +56,7 @@ export default async function editedPost(createdPost) {
       commentForm.elements.title.value = commentTitle
       commentForm.elements.body.value = commentBody
       commentForm.elements.email.value = commentEmail
-      commentForm.elements['#submit-button'].value = 'Edit a comment'
+      commentForm.elements['submit-button'].value = 'Edit a comment'
 
 
     })
