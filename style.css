@@ -102,3 +102,24 @@ body {
 #create-comment-form {
   text-align: left;
 }
+
+.paginator-wrapper {
+  border: 1px solid white;
+  padding: 15px;
+  text-align: center;
+    
+  }
+.paginator-wrapper a {
+  padding: 15px;
+  text-align: center;
+}
+
+
+.paginator-wrapper a:hover {
+  background-color: rgb(255, 194, 25);
+  text-align: center;
+  padding: 8px 16px;
+  text-decoration: none;
+}  
+
+
