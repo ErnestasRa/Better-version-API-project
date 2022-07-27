@@ -1,14 +1,14 @@
 
 import  headerElement from "../header/header.js"
-import{renderAllPosts, renderPaginationLinks} from "./postsController.js"
+import{renderAllPosts} from "./postsController.js"
+import {renderPaginationLinks} from "../pagination/pagination.js"
 
-
-headerElement()
 
 
 function init() {
     renderPaginationLinks(1)
     renderAllPosts()
+    headerElement()
 }
 
 init()

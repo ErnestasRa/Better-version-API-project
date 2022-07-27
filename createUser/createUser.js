@@ -37,22 +37,8 @@ import{fetchAllUsers} from "../users/usersController.js"
         }
         let editedAddress = await createUser(newUser)
         createAddress(editedAddress)
+        createUserForm.reset()
       });
-
-createUserForm.addEventListener('change', async (e) => {
-  e.preventDefault()
-  let usernameElement = e.target.value
-  let allUsers = await fetchAllUsers()
-  allUsers.map(user => {
-    let usernames = user.username
-    let filtered = usernames.filter(username.includes(usernameElement))
-    console.log(filtered)
-  })
- 
-
-
-  console.log(usernameElement)
-})
 
 
 
