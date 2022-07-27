@@ -5,14 +5,12 @@ export function renderListElement(data) {
     }
     itemElement.innerHTML = `<a href="${data.href}">${data.content}</a>`;
     data.parentElement.append(itemElement);
-
 }
 
 export function renderOptionElement(data) {
   let optionElement = document.createElement('option');
   optionElement.textContent = data.content;
   optionElement.value = data.value;
-
   data.parentElement.append(optionElement);
 }
 
@@ -24,7 +22,6 @@ export function renderAllAlbums() {
     fetch('https://jsonplaceholder.typicode.com/albums?_expand=user&_embed=photos&_limit=15')
       .then(res => res.json())
       .then(albums => {
-      
         albums.map(singleAlbum => {
           renderSingleAlbum({
             album: singleAlbum,
