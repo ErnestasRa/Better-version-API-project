@@ -1,7 +1,9 @@
 import { getAllAlbums, getAlbumById } from "./albumsController.js";
 import  headerElement from "../header/header.js"
+import {renderPaginationLinks} from "../pagination/pagination.js"
 headerElement()
 
+renderPaginationLinks(10, 'albums', 40)
 let albumsWrapper = document.querySelector('#albums-wrapper');
 let albumsWrapperTitle = document.createElement('h2');
 document.body.prepend(albumsWrapperTitle);
