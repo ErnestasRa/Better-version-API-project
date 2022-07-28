@@ -6,6 +6,11 @@
     box-sizing: border-box;
   }
 
+a {
+  color: lightcoral
+  
+}
+
 #post-form {
   margin: auto;
   width: 50%;

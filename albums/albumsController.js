@@ -4,8 +4,6 @@ async function getAllAlbums() {
     let limit = serachParams.get('limit') ? serachParams.get('limit') : 25;
     let page = serachParams.get('page') ? serachParams.get('page') : 1
 
-
-
     let res = await fetch(`https://jsonplaceholder.typicode.com/albums?_expand=user&_embed=photos&_page=${page}&_limit=${limit}`);
     let allAlbums  = await res.json();
     return allAlbums;
