@@ -69,7 +69,7 @@ export function renderPaginationLinks(pageLimit,urlPage,number) {
 
       paginationSelectElement.addEventListener('change', (e) => {
         let optionValue = e.target.value
-        window.location.href = `/${urlPage}.html?page=1&limit=${optionValue}`
+        window.location.href = `./${urlPage}.html?page=1&limit=${optionValue}`
       })
 
 

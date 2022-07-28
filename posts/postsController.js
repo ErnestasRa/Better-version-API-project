@@ -1,6 +1,10 @@
 import{ toUpperCase } from "../export.js"
 import {renderPaginationLinks} from "../pagination/pagination.js"
 
+let urlParams = document.location.search
+let serachParams = new URLSearchParams(urlParams)
+let id = serachParams.get('user_id')
+
 
 async function getAllUserPosts() {
     let urlParams = document.location.search
@@ -61,7 +65,11 @@ async function renderAllUserPosts() {
 
 async function renderUserByIdPosts(id){
    let users = await getUserPostsById(id)
-           users.posts.map(post => {
+           users.map(post => {
+            console.log(post)
+                        let postWrapper = document.createElement('div')
+                        postWrapper.classList.add('post-wrapper')
+
                        let updatedTitle = post.title[0].toUpperCase() + post.title.slice(1);
                        let postItem = document.createElement('div')
                        postItem.classList.add('post-item')
@@ -86,7 +94,7 @@ async function renderUserByIdPosts(id){
                        
                        postItem.append(postAuthor,postBody,postCommentsTitle,postCommentsBody,postCommentsEmail)
                        postWrapper.append(postItem)
- 
+                      document.body.append(postWrapper)
            })
        }
       
