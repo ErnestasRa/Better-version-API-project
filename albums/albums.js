@@ -1,9 +1,13 @@
 import { getAllAlbums, getAlbumById } from "./albumsController.js";
 import  headerElement from "../header/header.js"
 import {renderPaginationLinks} from "../pagination/pagination.js"
+
+renderPaginationLinks(10, 'albums', 100)
+
+
 headerElement()
 
-renderPaginationLinks(10, 'albums', 40)
+
 let albumsWrapper = document.querySelector('#albums-wrapper');
 let albumsWrapperTitle = document.createElement('h2');
 document.body.prepend(albumsWrapperTitle);
@@ -14,7 +18,7 @@ function init() {
   let userId = urlParams.get('user_id');
 
   if (userId) {
-    renderAlbumsByUserId(userId);
+    renderAlbumsByUserId(userId); 
   } else {
     renderAllAlbums();
   }
